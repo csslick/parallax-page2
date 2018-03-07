@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>	
+</head>
+<body>
+
+<script>
+  var $circle = $('.c');
+  var width = $(window).width();
+  var height = $(window).height();
+  var rx, ry;
+  var c;
+  // console.log(width, rx);
+  // console.log(height, ry);
+  for(var i = 0; i< 10; i++){
+    $('body').append('<div class="c"></div>');
+  }  
+  $circle = $('.c');
+
+  for(var i=0; i<$circle.length;i++){
+    rx = Math.floor(Math.random()*width-200);
+    ry = Math.floor(Math.random()*height-128); 
+    opacity = Math.random()*1+0.5;
+    // console.log(rx,ry,c);
+    $circle
+      .eq(i)
+      .css('left', rx)
+      .css('top', ry)
+      .css('opacity', opacity);
+  }
+
+  // 원래 원 위치 저장
+  var y = [];
+  var parallax_y = [];
+  $circle.each(function(i){   
+    y[i] = parseInt($(this).css('top'));  
+    parallax_y[i] = Math.random()*1;
+    console.log(y[i], parallax_y);
+  });  
+
+  // 
+  $(window).scroll(function(){
+    var wScroll = $(window).scrollTop();
+
+    console.log('scrollTop= ' + wScroll);
+
+    $circle.each(function(i){   
+      // console.log('y' + i + '= ' + y);
+      $(this).css('top', y[i] + (wScroll*parallax_y[i]) + 'px');
+    });
+  });
+
+</script>	
+
+
+
+</body>
+</html>
